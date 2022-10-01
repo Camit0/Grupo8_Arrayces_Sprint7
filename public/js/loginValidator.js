@@ -1,68 +1,82 @@
 window.addEventListener('load', function(){
 
-/* Capturamos el form */
-const form = document.querySelector('form')
-
-/* Capturamos los elementos input */
-const loginEmail = document.querySelector('input.loginEmail')
-const loginPassword = document.querySelector('input.loginPassword')
-const startButton = document.querySelector('button.startButton')
-
-/* Capturamos los DIVs para inyectar los errores */
-const loginEmailError = document.querySelector('div#loginEmailError')
-const loginPasswordError = document.querySelector('div#loginPasswordError')
-
-
-/* Validamos formulario al presionar botón de inicio */
-startButton.addEventListener('click', function(e){
-
-    e.preventDefault()
-
-    let errores = {}
-
-    if(loginEmail.value === ""){
-        errores.email = 'El campo email no puede estar vacío'
+    /* Capturamos el form */
+    const form = document.querySelector('.loginForm')
+    
+    
+    /* Capturamos los elementos input */
+    const loginEmail = document.querySelector('input.loginEmail')
+    const loginPassword = document.querySelector('input.loginPassword')
+    const startButton = document.querySelector('button.startButton')
+    
+    /* Expresiones regulares */
+    
+    /* const RegExpEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const RegExpImages= /([^\s]+(\.(?i)(jpg|png|gif|bmp))$)/ */
+    
+    
+    let errors = {}
+    
+    let emailValidation = () =>{
+    
+        //CHEQUEAR LO DE LA BASE DE DATOS
+    
+        let feedback = ""
+    
+        let loginEmailError = document.querySelector('div#loginEmailError')
+    
+        if(loginEmail.value.trim() == ""){
+            feedback = "El campo de email no puede estar vacío"
+        }
+    
+        // Chequear validación expresión regular
+    
+        if(feedback){
+            loginEmail.style.backgroundColor = "rgba(255,0,0,0.5)"
+            errors.loginEmail = feedback
+        } else { 
+            loginEmail.style.backgroundColor = "rgba(211, 214, 143, 0.8)" 
+            delete errors.loginEmail 
+        }
+    
+        loginEmailError.innerText = feedback
     }
-
-    if(loginPassword.value === ""){
-        errores.password = 'El campo contraseña no puede estar vacío'
+    
+    let passwordValidation = () =>{
+    
+        let feedback = ""
+    
+        let loginPasswordError = document.querySelector('div#loginPasswordError')
+    
+        if(loginPassword.value.trim() == ""){
+            feedback = "Debes ingresar una contraseña"
+        }
+    
+        if(feedback){
+            loginPassword.style.backgroundColor = "rgba(255,0,0,0.5)"
+            errors.loginPassword = feedback
+        } else { 
+            loginPassword.style.backgroundColor = "rgba(211, 214, 143, 0.8)" 
+            delete errors.loginPassword 
+        }
+    
+        loginPasswordError.innerText = feedback
     }
-
-    if(Object.keys(errores).length > 0){
-        errores.email ? (loginEmailError.innerText = errores.email) : (loginEmailError.innerText = "")
-        errores.password ? (loginPasswordError.innerText = errores.password) : (loginPasswordError.innerText = "")
-    } else { 
-        loginEmailError.innerText = ""
-        loginPasswordError.innerText = ""
-        startButton.click() // evento click y submit no funcionaron
-    } 
-
-})
-
-
-/* Validamos campo de email */
-loginEmail.addEventListener('focus', function(){
-
-    if(loginEmail.value === ""){
-        loginEmail.classList.add('isInvalid') // cuando creemos la clase va a aparecer el input con borde rojo
-        loginEmailError.innerText = 'El campo email no puede estar vacío'
-    } else {
-        loginEmailError.innerText = ""
-    }
-
-})
-
-loginEmail.addEventListener('input', function(){
-
-    if(!loginEmail.value.includes('@')) { // debemos reemplazar por chirimbolo
-        loginEmailError.innerText = 'El email debe tener un farmato válido'
-    } else {
-        loginEmail.classList.remove('isInvalid')
-        loginEmail.classList.add('isValid')
-    }
-
-})
-
-
-
-})
+    
+    form.addEventListener("submit", function(e){
+        e.preventDefault()
+        emailValidation()
+        passwordValidation()
+    
+        if(Object.keys(errors).length){
+            e.preventDefault()
+        }else{
+            form.submit()
+        }
+    })
+    
+    loginEmail.addEventListener("input", emailValidation)
+    loginPassword.addEventListener("input", passwordValidation)
+    
+    
+    })
