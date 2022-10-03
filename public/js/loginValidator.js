@@ -2,6 +2,9 @@ window.addEventListener('load', function(){
 
     /* Capturamos el form */
     const form = document.querySelector('.loginForm')
+
+/*     const {User} = require ('../../src/database/models')
+ */
     
     
     /* Capturamos los elementos input */
@@ -11,8 +14,10 @@ window.addEventListener('load', function(){
     
     /* Expresiones regulares */
     
-    /* const RegExpEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-    const RegExpImages= /([^\s]+(\.(?i)(jpg|png|gif|bmp))$)/ */
+    /* const RegExpEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'i')
+    const RegExpImages= new RegExp(/([^\s]+(\.(?i)(jpg|png|gif|bmp))$)/,'i') */
+
+    const RegExpEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i
     
     
     let errors = {}
@@ -27,6 +32,8 @@ window.addEventListener('load', function(){
     
         if(loginEmail.value.trim() == ""){
             feedback = "El campo de email no puede estar vacío"
+        } else if (!RegExpEmail.test(loginEmail.value)){
+            feedback = "Debes poner un formato de email válido"
         }
     
         // Chequear validación expresión regular
