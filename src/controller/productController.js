@@ -114,7 +114,7 @@ const productController = {
 
             let images = await Image.bulkCreate(imagesProducts)
 
-             return res.redirect('/products/create')
+             return res.redirect('/')
         } catch (error) {
              res.json(error.msg)
         }
@@ -351,7 +351,7 @@ const productController = {
             if(imagesProducts.length > 2){
             let images = await Image.bulkCreate(imagesProducts)
             } else {
-                return res.redirect('/products/create')
+                return res.redirect('/')
             }
         } catch (error) {
              res.json(error.msg)
