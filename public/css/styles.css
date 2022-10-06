@@ -365,6 +365,26 @@ img.productImage{
     margin-bottom: 15px;
 }
 
+/* Estilo cambio imagen de productos */
+
+img.productImage{
+    width: 100%;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1
+}
+
+img.productImageI{
+    width: 100%;
+    margin-bottom: 15px;
+    position:absolute;
+    right: 0px;
+    transition: all 350ms
+}
+img.productImageI.active{
+    z-index: 2
+}
+
 
 /* descripcion producto */
 div.description{
@@ -1605,6 +1625,25 @@ main.userProfile{
         margin-top: 100px;
     }
 
+    /* Estilo cambio imagen de productos */
+
+    img.productImage{
+        width: 100%;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1
+    }
+
+    img.productImageI{
+        width: 100%;
+        margin-bottom: 15px;
+        position:absolute;
+        top: 0px;
+        transition: all 350ms
+    }
+    img.productImageI.active{
+        z-index: 2
+    }
 
     /* --------------ALL PRODUCT-------------- */
 
