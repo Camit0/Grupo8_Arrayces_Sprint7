@@ -1,31 +1,22 @@
 window.addEventListener('load', function(){
 
+    /* Requerimos el modelo User */ 
+
+
     /* Capturamos el form */
     const form = document.querySelector('.loginForm')
-
-/*     const {User} = require ('../../src/database/models')
- */
     
     
     /* Capturamos los elementos input */
     const loginEmail = document.querySelector('input.loginEmail')
     const loginPassword = document.querySelector('input.loginPassword')
-    const startButton = document.querySelector('button.startButton')
     
-    /* Expresiones regulares */
-    
-    /* const RegExpEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'i')
-    const RegExpImages= new RegExp(/([^\s]+(\.(?i)(jpg|png|gif|bmp))$)/,'i') */
-
-    const RegExpEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i
     
     
     let errors = {}
     
-    let emailValidation = () =>{
-    
-        //CHEQUEAR LO DE LA BASE DE DATOS
-    
+    let emailValidation = async () =>{
+
         let feedback = ""
     
         let loginEmailError = document.querySelector('div#loginEmailError')
@@ -36,13 +27,16 @@ window.addEventListener('load', function(){
             feedback = "Debes poner un formato de email válido"
         }
     
-        // Chequear validación expresión regular
     
         if(feedback){
-            loginEmail.style.backgroundColor = "rgba(255,0,0,0.5)"
+            
+            loginEmail.classList.remove('isValid')
+            loginEmail.classList.add('isInvalid')
+            
             errors.loginEmail = feedback
         } else { 
-            loginEmail.style.backgroundColor = "rgba(211, 214, 143, 0.8)" 
+            loginEmail.classList.remove('isInvalid')
+            loginEmail.classList.add('isValid')
             delete errors.loginEmail 
         }
     
@@ -60,10 +54,12 @@ window.addEventListener('load', function(){
         }
     
         if(feedback){
-            loginPassword.style.backgroundColor = "rgba(255,0,0,0.5)"
+            loginPassword.classList.remove('isValid')
+            loginPassword.classList.add('isInvalid')
             errors.loginPassword = feedback
         } else { 
-            loginPassword.style.backgroundColor = "rgba(211, 214, 143, 0.8)" 
+            loginPassword.classList.remove('isInvalid')
+            loginPassword.classList.add('isValid')
             delete errors.loginPassword 
         }
     

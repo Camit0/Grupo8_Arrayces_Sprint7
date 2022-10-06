@@ -2,7 +2,7 @@ window.addEventListener('load', function(){
 
     /* Capturamos el form */
     const form = document.querySelector('.registerForm')
-    console.log(form)
+    
     
     /* Capturamos los elementos input */
     const avatar = document.querySelector('input#avatar')
@@ -13,21 +13,38 @@ window.addEventListener('load', function(){
     const password = document.querySelector('input#password')
     const confirmPassword = document.querySelector('input#confirmPassword')
     const buttonCrear = document.querySelector('button.crearCuenta')
+
     
-    
+    /* Expresiones regulares */
+    const RegExpEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i
+    const RegExpPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/i
+    const RegExpAvatar = /(.jpg|.jpeg|.png|.gif)$/i
+
     let errors = {}
     
-    
     let avatarValidation = () => {
+        
         feedback = ""
     
         const avatarError = document.querySelector('div#avatarError')
     
-        //FALTA COMPLETAR
+        if(!RegExpAvatar.exec(avatar.value)){
+            feedback = "Los archivos requeridos son jpg, jpeg y png"
+        } 
+    
+        
+        if(feedback){
+            avatar.classList.remove('isValid')
+            avatar.classList.add('isInvalid')
+            errors.avatar = feedback
+        } else { 
+            avatar.classList.remove('isInvalid')
+            avatar.classList.add('isValid')
+            delete errors.avatar 
+        }
+    
+        avatarError.innerText = feedback
     }
-    
-    
-    
     
     let firstNameValidation = () =>{
     
@@ -43,10 +60,12 @@ window.addEventListener('load', function(){
     
         
         if(feedback){
-            firstName.style.backgroundColor = "rgba(255,0,0,0.5)"
+            firstName.classList.remove('isValid')
+            firstName.classList.add('isInvalid')
             errors.firstName = feedback
         } else { 
-            firstName.style.backgroundColor = "rgba(211, 214, 143, 0.8)"
+            firstName.classList.remove('isInvalid')
+            firstName.classList.add('isValid')
             delete errors.firstName 
         }
     
@@ -67,10 +86,12 @@ window.addEventListener('load', function(){
         }
         
         if(feedback){
-            lastName.style.backgroundColor = "rgba(255,0,0,0.5)"
+            lastName.classList.remove('isValid')
+            lastName.classList.add('isInvalid')
             errors.lastName = feedback
         } else { 
-            lastName.style.backgroundColor = "rgba(211, 214, 143, 0.8)"
+            lastName.classList.remove('isInvalid')
+            lastName.classList.add('isValid')
             delete errors.lastName 
         }
     
@@ -91,10 +112,12 @@ window.addEventListener('load', function(){
         }
         
         if(feedback){
-            userName.style.backgroundColor = "rgba(255,0,0,0.5)"
+            userName.classList.remove('isValid')
+            userName.classList.add('isInvalid')
             errors.userName = feedback
         } else { 
-            userName.style.backgroundColor = "rgba(211, 214, 143, 0.8)"
+            userName.classList.remove('isInvalid')
+            userName.classList.add('isValid')
             delete errors.userName 
         }
     
@@ -104,7 +127,6 @@ window.addEventListener('load', function(){
     
     let emailValidation = () =>{
     
-        //CHEQUEAR LO DE LA BASE DE DATOS
     
         let feedback = ""
     
@@ -112,15 +134,18 @@ window.addEventListener('load', function(){
     
         if(email.value.trim() == ""){
             feedback = "El campo de email no puede estar vacío"
+        }else if (!RegExpEmail.test(email.value)){
+            feedback = "Debes poner un formato de email válido"
         }
     
-        // Validación expresión regular
     
         if(feedback){
-            email.style.backgroundColor = "rgba(255,0,0,0.5)"
+            email.classList.remove('isValid')
+            email.classList.add('isInvalid')
             errors.email = feedback
         } else { 
-            email.style.backgroundColor = "rgba(211, 214, 143, 0.8)" 
+            email.classList.remove('isInvalid')
+            email.classList.add('isValid')
             delete errors.email
         }
     
@@ -137,15 +162,17 @@ window.addEventListener('load', function(){
             feedback = "Debes ingresar una contraseña"
         } else if (password.value.length < 8){
             feedback = "La contraseña debe tener al menos 8 caracteres"
+        }else if(!RegExpPass.test(password.value)){
+            feedback = "La contraseña debe tener una mayúscula, una minúscula, un número y caracter especial"
         }
     
-         //Validación expresión regular (opcional)
-    
         if(feedback){
-            password.style.backgroundColor = "rgba(255,0,0,0.5)"
+            password.classList.remove('isValid')
+            password.classList.add('isInvalid')
             errors.password = feedback
         } else { 
-            password.style.backgroundColor = "rgba(211, 214, 143, 0.8)" 
+            password.classList.remove('isInvalid')
+            passwordclassList.add('isValid')
             delete errors.password 
         }
     
@@ -165,10 +192,12 @@ window.addEventListener('load', function(){
         }
     
         if(feedback){
-            confirmPassword.style.backgroundColor = "rgba(255,0,0,0.5)"
+            confirmPassword.classList.remove('isValid')
+            confirmPassword.classList.add('isInvalid')
             errors.confirmPassword = feedback
         } else { 
-            confirmPassword.style.backgroundColor = "rgba(211, 214, 143, 0.8)" 
+            confirmPassword.classList.remove('isInvalid')
+            classList.add('isValid')
             delete errors.confirmPassword 
         }
     
@@ -198,4 +227,5 @@ window.addEventListener('load', function(){
     email.addEventListener("input", emailValidation)
     password.addEventListener("input", passwordValidation)
     confirmPassword.addEventListener("input", confirmPasswordValidation)
+    avatar.addEventListener("input", avatarValidation)
     })

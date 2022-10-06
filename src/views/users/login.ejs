@@ -29,6 +29,9 @@
                         <div>
                             <input type="password" name="password" class="loginPassword"  placeholder="Contraseña"> 
                             <div class="errorMessage" id="loginPasswordError"></div>
+                            <% if (locals.errors && errors.password) { %>
+                                <p class="errorStyle"> <%= errors.password.msg %> </p>
+                            <% } %>
                         </div>
                         <div class="userActions">
                             <p><a href="#">¿Olvidaste tu contraseña?</a></p>

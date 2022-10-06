@@ -13,17 +13,20 @@
          <div class="createInputContainer">
             <label for="name">Nombre </label>
             <input type="text" name="name" id="name" value="<%= locals.oldData ? oldData.name : null %>">
+            <div id="nameError" class="errorMessage"></div>
             <% if (locals.errors && errors.name) { %>
                <p class="errorStyle"> <%= errors.name.msg %> </p>
             <% } %>
             <label for="description">Descripción</label>
             <textarea name="description" id="description" cols="30" rows="10"> <%= locals.oldData ? oldData.description : null %> </textarea>
+            <div id="descriptionError" class="errorMessage"></div>
             <% if (locals.errors && errors.description) { %>
                <p class="errorStyle"> <%= errors.description.msg %> </p>
             <% } %>
             <div class="createImages">
                <label for="image"> Imagen </label>
                <input type="file" name="image" id="image" multiple>
+               <div id="imageError" class="errorMessage"></div>
                <% if (locals.errors && errors.image) { %>
                   <p class="errorStyle"> <%= errors.image.msg %> </p>
                <% } %>
@@ -88,5 +91,6 @@
 
    <%- include('../partials/footer.ejs') %> 
    <script src="/js/header.js"> </script>
+   <script src="/js/createValidator.js"></script>
 </body>
 </html>
