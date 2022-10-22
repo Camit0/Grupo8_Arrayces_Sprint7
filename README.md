@@ -1,4 +1,4 @@
-# Grupo8_Index7_Sprint6
+# Grupo8_Index7_Sprint7
 
 ★ Usuario ADMIN: emmet@arrayces.com ★ Contraseña: 123456
 
